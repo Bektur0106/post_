@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
-import 'package:post/pages/datadding.dart';
 import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 import 'package:post/pages/UserObj.dart';
 import 'package:post/pages/poluchatel.dart';
@@ -127,10 +126,14 @@ class _QRscannerState extends State<QRscanner> {
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: [
                             Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(0)
+                              ),
                               height: 40,
                               width: 150,
                               child: ElevatedButton(
                                 onPressed: (){
+                                  FocusManager.instance.primaryFocus?.unfocus();
                                   authenticate(result).then((data) {
                                     if (data.isAuthSuccessful){
                                       var route= new MaterialPageRoute(
@@ -138,12 +141,20 @@ class _QRscannerState extends State<QRscanner> {
                                         new Poluch(res: result,id:data.ItemId, otdelenieId: otdelen,firstName: data.Name,lastName: data.LastName,patName: data.PatronomycName,),
                                       );
                                       Navigator.of(context).push(route);
+                                    }else{
+                                      final snackBar = SnackBar(
+                                        closeIconColor: Colors.red,
+                                        content: Text(data.Name??"Ошибка"),
+                                        duration: Duration(seconds: 5),
+                                      );
+                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                     }
                                   });
                                 },
                                 child: Text('Проверить', style: TextStyle(fontSize: MediaQuery.of(context).size.width/23.058, color: Colors.white),),
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: primaryColor,
+
                                 ),
                               ),
                             )
@@ -177,6 +188,13 @@ class _QRscannerState extends State<QRscanner> {
                                         new Poluch(res: result,id:data.ItemId, otdelenieId: otdelen,firstName: data.Name,lastName: data.LastName,patName: data.PatronomycName,),
                                       );
                                       Navigator.of(context).push(route);
+                                    }else{
+                                      final snackBar = SnackBar(
+                                        closeIconColor: Colors.red,
+                                        content: Text(data.Name??"Ошибка"),
+                                        duration: Duration(seconds: 5),
+                                      );
+                                      ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                     }
                                   });
                                 }
