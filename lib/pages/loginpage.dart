@@ -24,7 +24,7 @@ class _LoginPageState extends State<LoginPage> {
       _obscured = !_obscured;
     });
   }
-  static const backColor = Color(0xFF90CAF9);
+  static const backColor = Color(0xFFE3F2FD);
   static const primaryColor = Color(0xFF1E88E5);
   static const buttonColor = Color(0xFF0D47AD);
 

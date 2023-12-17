@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:post/pages/datadding.dart';
 import 'package:post/pages/loginpage.dart';
 import 'package:post/pages/newqpage.dart';
+import 'package:post/pages/poluchatel.dart';
+import 'package:post/pages/qrcode.dart';
 
 
 
