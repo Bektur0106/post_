@@ -33,7 +33,7 @@ class _DataAddState extends State<DataAdd> {
   static const primaryColor = Color(0xFF1E88E5);
   static const buttonColor = Color(0xFF0D47AD);
   _DataAddState(this.result,this.id, this.otdelen, this.name, this.famil, this.otch);
-  Data data = new Data(
+  Data data = Data(
       familiya: '',
       name: '',
       otchestvo: '',
@@ -80,17 +80,17 @@ class _DataAddState extends State<DataAdd> {
           backgroundColor: primaryColor,
           appBar: AppBar(
             centerTitle: true,
-            title: Text('Отправка отчета', style: TextStyle(color: Colors.white),),
+            title: const Text('Отправка отчета', style: TextStyle(color: Colors.white),),
             toolbarHeight: 40,
             leading: IconButton(
               onPressed: (){
-                var route= new MaterialPageRoute(
+                var route= MaterialPageRoute(
                   builder: (BuildContext context)=>
-                  new QRscanner(otdelenieID: otdelen),
+                  QRscanner(otdelenieID: otdelen),
                 );
                 Navigator.of(context).push(route);
               },
-              icon: Icon(Icons.arrow_back),
+              icon: const Icon(Icons.arrow_back),
               color: Colors.white,
             ),
             backgroundColor: Colors.transparent,
@@ -109,7 +109,7 @@ class _DataAddState extends State<DataAdd> {
               child: SingleChildScrollView(
                 child: Column(
                     children: [
-                      Padding(padding: EdgeInsets.only(top:30)),
+                      const Padding(padding: EdgeInsets.only(top:30)),
                       Padding(
                         padding: const EdgeInsets.only(left:30),
                         child: Row(
@@ -118,14 +118,14 @@ class _DataAddState extends State<DataAdd> {
                             Container(
                               child: Row(
                                 children: [
-                                  Text('Товар: ', style:
+                                  const Text('Товар: ', style:
                                   TextStyle(
                                       fontSize: 25,
                                       color: Colors.white
                                   )
                                     ,),
                                   Text('$result', style:
-                                  TextStyle(
+                                  const TextStyle(
                                       fontSize: 20,
                                       color: Colors.white
                                   )
@@ -139,15 +139,15 @@ class _DataAddState extends State<DataAdd> {
                       Padding(
                         padding: const EdgeInsets.only(left: 25, right: 17),
                         child: Container(
-                          padding : EdgeInsets.only(top: 10, bottom: 20,left: 5, right: 15),
-                          margin: EdgeInsets.fromLTRB(10, 30, 20,0),
+                          padding : const EdgeInsets.only(top: 10, bottom: 20,left: 5, right: 15),
+                          margin: const EdgeInsets.fromLTRB(10, 30, 20,0),
                           child: Column(
                             children: [
                               Padding(
-                                padding: EdgeInsets.only(top:3),
+                                padding: const EdgeInsets.only(top:3),
                                 child: TextField(
 
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
                                   ),
@@ -156,27 +156,27 @@ class _DataAddState extends State<DataAdd> {
                                   //   data.familiya=val;
                                   // },
                                   decoration: InputDecoration(
-                                      prefixIcon: Icon(Icons.manage_accounts, color: Colors.white,),
-                                      focusedBorder:OutlineInputBorder(
+                                      prefixIcon: const Icon(Icons.manage_accounts, color: Colors.white,),
+                                      focusedBorder:const OutlineInputBorder(
                                           borderSide: BorderSide(width: 2, color: Colors.white)
                                       ) ,
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(15),
-                                          borderSide: BorderSide(width: 2, color: Colors.white)
+                                          borderSide: const BorderSide(width: 2, color: Colors.white)
                                       ),
-                                      contentPadding: EdgeInsets.all(20),
+                                      contentPadding: const EdgeInsets.all(20),
                                       labelText: 'Фамилия',
-                                      labelStyle: TextStyle(
+                                      labelStyle: const TextStyle(
                                           color: Colors.white
                                       )
                                   ),
                                 ),
                               ),
-                              Padding(padding: EdgeInsets.only(top:20)),
+                              const Padding(padding: EdgeInsets.only(top:20)),
                               Padding(
-                                padding: EdgeInsets.only(top:3),
+                                padding: const EdgeInsets.only(top:3),
                                 child: TextFormField(
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
                                   ),
@@ -185,30 +185,30 @@ class _DataAddState extends State<DataAdd> {
                                   //   data.name=val;
                                   // },
                                   decoration: InputDecoration(
-                                      prefixIcon: Icon(Icons.man_3_rounded, color: Colors.white,),
-                                      focusedBorder:OutlineInputBorder(
+                                      prefixIcon: const Icon(Icons.man_3_rounded, color: Colors.white,),
+                                      focusedBorder:const OutlineInputBorder(
                                           borderSide: BorderSide(width: 2, color: Colors.white)
                                       ) ,
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(15),
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               width: 2,
                                               color: Colors.white
                                           )
                                       ),
-                                      contentPadding: EdgeInsets.all(20),
+                                      contentPadding: const EdgeInsets.all(20),
                                       labelText: 'Имя',
-                                      labelStyle: TextStyle(
+                                      labelStyle: const TextStyle(
                                           color: Colors.white
                                       )
                                   ),
                                 ),
                               ),
-                              Padding(padding: EdgeInsets.only(top:20)),
+                              const Padding(padding: EdgeInsets.only(top:20)),
                               Padding(
-                                padding: EdgeInsets.only(top:3),
+                                padding: const EdgeInsets.only(top:3),
                                 child: TextField(
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.white,
                                     fontSize: 18,
                                   ),
@@ -217,30 +217,30 @@ class _DataAddState extends State<DataAdd> {
                                   //   data.otchestvo=val;
                                   // },
                                   decoration: InputDecoration(
-                                      prefixIcon: Icon(Icons.manage_accounts_outlined, color: Colors.white,),
-                                      focusedBorder:OutlineInputBorder(
+                                      prefixIcon: const Icon(Icons.manage_accounts_outlined, color: Colors.white,),
+                                      focusedBorder:const OutlineInputBorder(
                                           borderSide: BorderSide(width: 2, color: Colors.white)
                                       ) ,
                                       enabledBorder: OutlineInputBorder(
                                           borderRadius: BorderRadius.circular(15),
-                                          borderSide: BorderSide(
+                                          borderSide: const BorderSide(
                                               width: 2,
                                               color: Colors.white
                                           )
                                       ),
-                                      contentPadding: EdgeInsets.all(20),
+                                      contentPadding: const EdgeInsets.all(20),
                                       labelText: 'Отчество',
-                                      labelStyle: TextStyle(
+                                      labelStyle: const TextStyle(
                                           color: Colors.white
                                       )
                                   ),
                                 ),
                               ),
-                              Padding(padding: EdgeInsets.only(top:20)),
+                              const Padding(padding: EdgeInsets.only(top:20)),
                               Padding(
-                                padding: EdgeInsets.only(top:3),
+                                padding: const EdgeInsets.only(top:3),
                                 child: TextField(
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.amber,
                                     fontSize: 18,
                                   ),
@@ -253,32 +253,32 @@ class _DataAddState extends State<DataAdd> {
                                   //       RegExp('[0-9-]')),
                                   // ],
                                   decoration: InputDecoration(
-                                    prefixIcon: Icon(Icons.account_box_rounded, color: Colors.white,),
-                                    focusedBorder:OutlineInputBorder(
+                                    prefixIcon: const Icon(Icons.account_box_rounded, color: Colors.white,),
+                                    focusedBorder:const OutlineInputBorder(
                                         borderSide: BorderSide(width: 2, color: Colors.white)
                                     ) ,
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(15),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                             width: 2,
                                             color: Colors.white
                                         )
                                     ),
-                                    contentPadding: EdgeInsets.all(20),
+                                    contentPadding: const EdgeInsets.all(20),
                                     labelText: 'Серия паспорта',
-                                    labelStyle: TextStyle(
+                                    labelStyle: const TextStyle(
                                         color: Colors.white
                                     ),
                                     hintText: '',
-                                    hintStyle: TextStyle(color: Colors.black54,fontSize: 16),
+                                    hintStyle: const TextStyle(color: Colors.black54,fontSize: 16),
                                   ),
                                 ),
                               ),
-                              Padding(padding: EdgeInsets.only(top:20)),
+                              const Padding(padding: EdgeInsets.only(top:20)),
                               Padding(
-                                padding: EdgeInsets.only(top:3),
+                                padding: const EdgeInsets.only(top:3),
                                 child: TextField(
-                                  style: TextStyle(
+                                  style: const TextStyle(
                                     color: Colors.amber,
                                     fontSize: 18,
                                   ),
@@ -293,27 +293,27 @@ class _DataAddState extends State<DataAdd> {
                                   maxLength: 14,
                                   decoration: InputDecoration(
                                     counterText: '',
-                                    prefixIcon: Icon(Icons.add, color: Colors.white,),
-                                    focusedBorder:OutlineInputBorder(
+                                    prefixIcon: const Icon(Icons.add, color: Colors.white,),
+                                    focusedBorder:const OutlineInputBorder(
                                         borderSide: BorderSide(width: 2, color: Colors.white)
                                     ) ,
                                     enabledBorder: OutlineInputBorder(
                                         borderRadius: BorderRadius.circular(15),
-                                        borderSide: BorderSide(
+                                        borderSide: const BorderSide(
                                             width: 2,
                                             color: Colors.white
                                         )
                                     ),
-                                    contentPadding: EdgeInsets.all(20),
+                                    contentPadding: const EdgeInsets.all(20),
                                     labelText: 'ПИН',
-                                    labelStyle: TextStyle(
+                                    labelStyle: const TextStyle(
                                         color: Colors.white
                                     ),
-                                    hintStyle: TextStyle(color: Colors.black54,fontSize: 16),
+                                    hintStyle: const TextStyle(color: Colors.black54,fontSize: 16),
                                   ),
                                 ),
                               ),
-                              Padding(padding: EdgeInsets.only(top:40)),
+                              const Padding(padding: EdgeInsets.only(top:40)),
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -325,10 +325,13 @@ class _DataAddState extends State<DataAdd> {
                                       postData(data).then((result) {
                                         if (result.isAuthSuccessful && data.inn.length==14){
                                           Navigator.of(context).pushNamed('new');
-                                        };
+                                        }
                                       });
                                     },
-                                    child: Container(
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: backColor,
+                                    ),
+                                    child: const SizedBox(
                                       height: 50,
                                       width: 250,
                                       child: Align(
@@ -341,9 +344,6 @@ class _DataAddState extends State<DataAdd> {
                                           ),
                                         ),
                                       ),
-                                    ),
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: backColor,
                                     ),
                                   )
                                 ],

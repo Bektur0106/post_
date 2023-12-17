@@ -30,11 +30,11 @@ class _PoluchState extends State<Poluch> {
     return Scaffold(
       backgroundColor: backColor,
       body: Padding(
-        padding: EdgeInsets.all(30),
+        padding: const EdgeInsets.all(30),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Row(
+            const Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
@@ -46,39 +46,39 @@ class _PoluchState extends State<Poluch> {
                 ),
               ],
             ),
-            Padding(padding: EdgeInsets.only(top: 20)),
-            Container(
+            const Padding(padding: EdgeInsets.only(top: 20)),
+            SizedBox(
               width: 350,
               height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
                 onPressed: () {
-                  var route = new MaterialPageRoute(
+                  var route = MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        new DataAdd(res: result, id: id, otdelenie: otdelen,fam: last,name: first,otch: pat,),
+                        DataAdd(res: result, id: id, otdelenie: otdelen,fam: last,name: first,otch: pat,),
                   );
                   Navigator.of(context).push(route);
                 },
-                child: Text(
+                child: const Text(
                   'Лично',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ),
-            Padding(padding: EdgeInsets.only(top: 20)),
-            Container(
+            const Padding(padding: EdgeInsets.only(top: 20)),
+            SizedBox(
               width: 350,
               height: 50,
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(backgroundColor: primaryColor),
                 onPressed: () {
-                  var route = new MaterialPageRoute(
+                  var route = MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        new DataAdd(res: result, id: id, otdelenie: otdelen,fam: '',name: '',otch: '',),
+                        DataAdd(res: result, id: id, otdelenie: otdelen,fam: '',name: '',otch: '',),
                   );
                   Navigator.of(context).push(route);
                 },
-                child: Text(
+                child: const Text(
                   'Доверенное лицо',
                   style: TextStyle(color: Colors.white, fontSize: 20),
                 ),

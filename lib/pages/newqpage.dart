@@ -15,7 +15,7 @@ class _NewPageState extends State<NewPage> {
     return  Scaffold(
       backgroundColor: primaryColor,
       body: Padding(
-          padding: EdgeInsets.all(20),
+          padding: const EdgeInsets.all(20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [

@@ -39,7 +39,7 @@ class _LoginPageState extends State<LoginPage> {
         'Password': pwd ?? ""
       }),
     );
-    print("Results: "+response.body);
+    print("Results: ${response.body}");
     return UserObj.fromJson(json.decode(response.body));
     // final tt=TokenObj(IsAuthSuccessful: false,errorMessage: "test",Token: "test");
 
@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
           backgroundColor: backColor,
           resizeToAvoidBottomInset: true,
           body: SingleChildScrollView(
-            child: Container(
+            child: SizedBox(
               height: MediaQuery.of(context).size.height*.99,
               // decoration: BoxDecoration(
               //     image: DecorationImage(
@@ -76,7 +76,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: constraints.maxWidth>1000&& constraints.maxHeight<1100?EdgeInsets.symmetric(horizontal: constraints.maxWidth/6): const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   children: [
-                    Flexible(flex:1,child: Padding(padding: EdgeInsets.only(top:60))),
+                    const Flexible(flex:1,child: Padding(padding: EdgeInsets.only(top:60))),
                     // Row(
                     //   mainAxisAlignment: MainAxisAlignment.start,
                     //   children: [
@@ -111,12 +111,12 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                     ),
-                    Padding(padding: EdgeInsets.only(top:20)),
-                    Flexible(flex:3,child: Image(image: AssetImage('assets/—Pngtree—postman taking a letter_4404340.png'))), //width: constraints.maxWidth>500? constraints.maxWidth/2: constraints.maxWidth,)),
-                    Padding(padding: EdgeInsets.only(top:10)),
+                    const Padding(padding: EdgeInsets.only(top:20)),
+                    const Flexible(flex:3,child: Image(image: AssetImage('assets/—Pngtree—postman taking a letter_4404340.png'))), //width: constraints.maxWidth>500? constraints.maxWidth/2: constraints.maxWidth,)),
+                    const Padding(padding: EdgeInsets.only(top:10)),
                     Container(
-                      padding : EdgeInsets.only(top: 10, bottom: 20,left: 5, right: 5),
-                      margin: EdgeInsets.fromLTRB(10, 20, 20,0),
+                      padding : const EdgeInsets.only(top: 10, bottom: 20,left: 5, right: 5),
+                      margin: const EdgeInsets.fromLTRB(10, 20, 20,0),
                       child: Column(
                         children: [
                           Container(
@@ -125,14 +125,14 @@ class _LoginPageState extends State<LoginPage> {
                               borderRadius: BorderRadius.circular(20),
                             ),
                             child: TextField(
-                              style: TextStyle(
+                              style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 15
                               ),
                               onChanged: (String val){
                                 email=val;
                               },
-                              decoration: InputDecoration(
+                              decoration: const InputDecoration(
                                   border: InputBorder.none,
                                   contentPadding: EdgeInsets.all(10),
                                   prefixIcon: Icon(
@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                             ),
 
                           ),
-                          Padding(padding: EdgeInsets.only(top:20)),
+                          const Padding(padding: EdgeInsets.only(top:20)),
                           Container(
                             decoration: BoxDecoration(
                               color: primaryColor,
@@ -159,7 +159,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: TextField(
                               keyboardType:TextInputType.visiblePassword,
                               obscureText:_obscured,
-                              style: TextStyle(
+                              style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
                               ),
@@ -168,8 +168,8 @@ class _LoginPageState extends State<LoginPage> {
                               },
                               decoration: InputDecoration(
                                   border: InputBorder.none,
-                                  contentPadding: EdgeInsets.all(14),
-                                  prefixIcon: Icon(
+                                  contentPadding: const EdgeInsets.all(14),
+                                  prefixIcon: const Icon(
                                     Icons.key,
                                     color: Colors.white,
                                     size: 20,
@@ -187,22 +187,22 @@ class _LoginPageState extends State<LoginPage> {
                                       ),
                                     ),
                                   ),
-                                  prefixIconConstraints: BoxConstraints(
+                                  prefixIconConstraints: const BoxConstraints(
                                       maxHeight: 20,
                                       minWidth: 40
                                   ),
                                   hintText: 'Пароль',
-                                  hintStyle: TextStyle(color: Colors.white,fontSize: 15)
+                                  hintStyle: const TextStyle(color: Colors.white,fontSize: 15)
                               ),
                             ),
                             // padding: EdgeInsets.only(bottom:20),
                           ),
-                          Padding(padding: EdgeInsets.only(top:20)),
+                          const Padding(padding: EdgeInsets.only(top:20)),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               Padding(padding: EdgeInsets.only(left:constraints.maxWidth/4)),
-                              Image(image: AssetImage('assets/postbox.png'), width: 60,height: 80,color: primaryColor,),
+                              const Image(image: AssetImage('assets/postbox.png'), width: 60,height: 80,color: primaryColor,),
                               Padding(padding: EdgeInsets.only(left:constraints.maxWidth/10)),
                               SafeArea(
                                 child: ElevatedButton(
@@ -213,14 +213,14 @@ class _LoginPageState extends State<LoginPage> {
                                     authenticate(email,pass).then((data) {
                                       //  print("Errer "+data.errorMessage??" ");
                                       if(data.isAuthSuccessful){
-                                        var route= new MaterialPageRoute(
+                                        var route= MaterialPageRoute(
                                           builder: (BuildContext context)=>
-                                          new QRscanner(otdelenieID: data.OtdelenieId),
+                                          QRscanner(otdelenieID: data.OtdelenieId),
                                         );
                                         Navigator.of(context).push(route);
                                       }
                                       else if(email=='' || pass=='' || email==pass && pass==''){
-                                        final snackBar1 = SnackBar(
+                                        const snackBar1 = SnackBar(
                                           closeIconColor: Colors.red,
                                           content: Text('Заполните все данные'),
                                           duration: Duration(seconds: 2),
@@ -228,34 +228,23 @@ class _LoginPageState extends State<LoginPage> {
                                         ScaffoldMessenger.of(context).showSnackBar(snackBar1);
                                       }
                                       else{
-                                        final snackBar = SnackBar(
+                                        const snackBar = SnackBar(
                                           closeIconColor: Colors.red,
                                           content: Text('Вы неправильно ввели свои данные'),
                                           duration: Duration(seconds: 2),
                                         );
                                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                      };
+                                      }
                                     });
                                   },
-                                  child: Text('Войти', style: TextStyle(color: Colors.white),),
                                   style: ElevatedButton.styleFrom(
                                       backgroundColor: buttonColor
                                   ),
+                                  child: const Text('Войти', style: TextStyle(color: Colors.white),),
                                 ),
                               )
                             ],
                           ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.center,
-                          //   children: [
-                          //     Text('Добро пожаловать в Dmad!',
-                          //         style: TextStyle(
-                          //             fontSize: 25,
-                          //             color: Colors.white60,
-                          //             fontWeight: FontWeight.bold
-                          //         ))
-                          //   ],
-                          // ),
                         ],
                       ),
                     )
@@ -267,7 +256,5 @@ class _LoginPageState extends State<LoginPage> {
         ),
       );
     });
-
-
   }
 }
