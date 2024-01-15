@@ -82,7 +82,7 @@ class _DataAddState extends State<DataAdd> {
           appBar: AppBar(
             centerTitle: true,
             title: const Text('Отправка отчета', style: TextStyle(color: Colors.white),),
-            toolbarHeight: 40,
+            toolbarHeight: 60,
             leading: IconButton(
               onPressed: (){
                 var route= MaterialPageRoute(
@@ -95,55 +95,53 @@ class _DataAddState extends State<DataAdd> {
               color: Colors.white,
             ),
             backgroundColor: buttonColor,
-            elevation: 0,
+
           ),
-          body:
-          GestureDetector(
-            onTap: (){
-              FocusScope.of(context).unfocus();
-              FocusScopeNode currentFocus = FocusScope.of(context);
-              if(!currentFocus.hasPrimaryFocus){
-                currentFocus.unfocus();
-              }
-            },
-            child: SafeArea(
-              child: SingleChildScrollView(
-                child: Column(
-                    children: [
-                      const Padding(padding: EdgeInsets.only(top:30)),
-                      Padding(
-                        padding: const EdgeInsets.only(left:30),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Container(
-                              child: Row(
-                                children: [
-                                  const Text('Товар: ', style:
-                                  TextStyle(
-                                      fontSize: 25,
-                                      color: Colors.black87
-                                  )
-                                    ,),
-                                  Text('$result', style:
-                                  const TextStyle(
-                                      fontSize: 20,
-                                      color: primaryColor
-                                  )
-                                    ,),
-                                ],
+          body:LayoutBuilder(builder: (context, constraints){
+            return GestureDetector(
+              onTap: (){
+                FocusScope.of(context).unfocus();
+                FocusScopeNode currentFocus = FocusScope.of(context);
+                if(!currentFocus.hasPrimaryFocus){
+                  currentFocus.unfocus();
+                }
+              },
+              child: SafeArea(
+                child: SingleChildScrollView(
+                  child: Column(
+                      children: [
+                        const Padding(padding: EdgeInsets.only(top:30)),
+                        Padding(
+                          padding: const EdgeInsets.only(left:30),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Container(
+                                child: Row(
+                                  children: [
+                                    const Text('Товар: ', style:
+                                    TextStyle(
+                                        fontSize: 25,
+                                        color: Colors.black87
+                                    )
+                                      ,),
+                                    Text('$result', style:
+                                    const TextStyle(
+                                        fontSize: 20,
+                                        color: primaryColor
+                                    )
+                                      ,),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 25, right: 17),
-                        child: Container(
-                          padding : const EdgeInsets.only(top: 10, bottom: 20,left: 5, right: 15),
-                          margin: const EdgeInsets.fromLTRB(10, 30, 20,0),
-                          child: Flexible(
-                            flex: 1,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 25, right: 17),
+                          child: Container(
+                            padding : const EdgeInsets.only(top: 10, bottom: 20,left: 5, right: 15),
+                            margin: const EdgeInsets.fromLTRB(10, 30, 20,0),
                             child: Column(
                               children: [
                                 Padding(
@@ -325,24 +323,39 @@ class _DataAddState extends State<DataAdd> {
                                         data.name=control1.text;
                                         data.otchestvo=control2.text;
                                         postData(data).then((result) {
-                                          if (result.isAuthSuccessful && data.inn.length==14){
+                                          validator (value) {
+                                            final RegExp regex = RegExp('[0-9]');
+                                            if (value == null || value.isEmpty || !regex.hasMatch(value)) {
+                                              return false;
+                                            }
+                                            return true;
+                                          };
+                                          if (result.isAuthSuccessful && data.inn.length==14 && validator(data.inn) && validator(data.seriya)){
                                             Navigator.of(context).pushNamed('new');
+                                          }
+                                          else {
+                                            final snackBar = SnackBar(
+                                              closeIconColor: Colors.red,
+                                              content: Text("Заполните все поля правильно"),
+                                              duration: const Duration(seconds: 3),
+                                            );
+                                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                           }
                                         });
                                       },
                                       style: ElevatedButton.styleFrom(
                                         backgroundColor: buttonColor,
                                       ),
-                                      child: const SizedBox(
-                                        height: 50,
-                                        width: 250,
+                                      child: SizedBox(
+                                        width: constraints.maxWidth<400? 220:constraints.maxWidth<600? 260: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/1.5: constraints.maxWidth/2.3,
+                                        height: constraints.maxWidth<600? 50: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/13: constraints.maxWidth/20,
                                         child: Align(
                                           alignment: Alignment.center,
                                           child: Text('Отправить',
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 color: Colors.white,
-                                                fontSize: 20
+                                                fontSize: constraints.maxWidth<600? 20: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/37: constraints.maxWidth/50
                                             ),
                                           ),
                                         ),
@@ -353,11 +366,11 @@ class _DataAddState extends State<DataAdd> {
                               ],
                             ),
                           ),
-                        ),
-                      )]),
+                        )]),
+                ),
               ),
-            ),
-          )),
+            );
+    },))
     );
   }
 }

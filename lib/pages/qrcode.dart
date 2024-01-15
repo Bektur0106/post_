@@ -26,7 +26,7 @@ class _QRscannerState extends State<QRscanner> {
   _QRscannerState(this.otdelen);
 
   String? result;
-
+  final control= TextEditingController();
   Future<UserObj> authenticate(String? barcode ) async {
     final http.Response response = await http.post(
       Uri.parse('http://77.235.20.21:8087/api/Mobiles/CheckItems'),
@@ -92,12 +92,13 @@ class _QRscannerState extends State<QRscanner> {
                 child: Column(
                   children: [
                     SizedBox(
-                        width: constraints.maxWidth<600? 350: constraints.maxWidth<1040 && constraints.maxWidth>600? constraints.maxWidth/1.5: constraints.maxWidth/2.3,
-                        height: constraints.maxWidth<600? 70: constraints.maxWidth<1040 && constraints.maxWidth>600? constraints.maxWidth/10: constraints.maxWidth/20,
+                        width: constraints.maxWidth<600? 350: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/1.5: constraints.maxWidth/2.3,
+                        height: constraints.maxWidth<600? 70: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/10: constraints.maxWidth/20,
                         child: TextField(
+                          controller: control,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: constraints.maxWidth<600? 20: constraints.maxWidth<1040 && constraints.maxWidth>600? constraints.maxWidth/30: constraints.maxWidth/40,
+                            fontSize: constraints.maxWidth<600? 20: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/30: constraints.maxWidth/40,
 
                           ),
                           onChanged: (String val){
@@ -124,8 +125,8 @@ class _QRscannerState extends State<QRscanner> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: constraints.maxWidth<600? 350: constraints.maxWidth<1040 && constraints.maxWidth>600? constraints.maxWidth/1.5: constraints.maxWidth/2.3,
-                          height: constraints.maxWidth>600? constraints.maxWidth/18: 40,
+                          width: constraints.maxWidth<600? 350: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/1.5: constraints.maxWidth/2.3,
+                          height: constraints.maxWidth>=600? constraints.maxWidth/18: 40,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
@@ -133,8 +134,8 @@ class _QRscannerState extends State<QRscanner> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(0)
                                 ),
-                                height: constraints.maxWidth<600? 40: constraints.maxWidth<1040 && constraints.maxWidth>600? constraints.maxWidth/18: constraints.maxWidth/25,
-                                width: constraints.maxWidth<600? 160: constraints.maxWidth<1040 && constraints.maxWidth>600? constraints.maxWidth/4: constraints.maxWidth/7,
+                                height: constraints.maxWidth<600? 40: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/18: constraints.maxWidth/25,
+                                width: constraints.maxWidth<600? 160: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/4: constraints.maxWidth/7,
                                 child: ElevatedButton(
                                   onPressed: (){
                                     FocusManager.instance.primaryFocus?.unfocus();
@@ -145,6 +146,7 @@ class _QRscannerState extends State<QRscanner> {
                                               Poluch(res: result,id:data.ItemId, otdelenieId: otdelen,firstName: data.Name,lastName: data.LastName,patName: data.PatronomycName,),
                                         );
                                         Navigator.of(context).push(route);
+                                        control.text='';
                                       }else{
                                         final snackBar = SnackBar(
                                           closeIconColor: Colors.red,
@@ -159,20 +161,21 @@ class _QRscannerState extends State<QRscanner> {
                                     backgroundColor: primaryColor,
 
                                   ),
-                                  child: Text('Проверить', style: TextStyle(fontSize: constraints.maxWidth<600? 20: constraints.maxWidth<1040 && constraints.maxWidth>600? constraints.maxWidth/38: constraints.maxWidth/55, color: Colors.white),),
+                                  child: Text('Проверить', style: TextStyle(fontSize: constraints.maxWidth<600? 20: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/38: constraints.maxWidth/55, color: Colors.white),),
                                 ),
                               )
                             ],
                           ),
                         ),
-                        Padding(padding: EdgeInsets.only(top:constraints.maxHeight<650?constraints.maxHeight/2:constraints.maxWidth>1050?constraints.maxHeight/2.2:constraints.maxHeight/1.55)),
+                        Padding(padding: EdgeInsets.only(top:constraints.maxHeight<=600?constraints.maxHeight/2.1:constraints.maxWidth>1050?constraints.maxHeight/2.2:constraints.maxHeight/1.55)),
                         SizedBox(
-                          width: constraints.maxWidth<600? 350: constraints.maxWidth<1040 && constraints.maxWidth>600? constraints.maxWidth/1.5: constraints.maxWidth/2.3,
-                          height: constraints.maxWidth<600? 50: constraints.maxWidth<1040 && constraints.maxWidth>600? constraints.maxWidth/13: constraints.maxWidth/20,
+                          width: constraints.maxWidth<600? 350: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/1.5: constraints.maxWidth/2.3,
+                          height: constraints.maxWidth<600? 50: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/13: constraints.maxWidth/20,
                           child: ElevatedButton.icon(
                             style: ElevatedButton.styleFrom(
                                 backgroundColor: primaryColor),
                             onPressed: () async {
+                              control.text='';
                               var res = await Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -205,10 +208,10 @@ class _QRscannerState extends State<QRscanner> {
                                 }
                               });
                             },
-                            icon: Icon(Icons.camera_alt_outlined, color: Colors.white,size: constraints.maxWidth>600? constraints.maxWidth/25: 30,),
+                            icon: Icon(Icons.camera_alt_outlined, color: Colors.white,size: constraints.maxWidth>=600? constraints.maxWidth/25: 30,),
                             label: Text(
                               'Начать сканирование',
-                              style: TextStyle(color: Colors.white, fontSize: constraints.maxWidth<600? 20: constraints.maxWidth<1040 && constraints.maxWidth>600? constraints.maxWidth/37: constraints.maxWidth/50),
+                              style: TextStyle(color: Colors.white, fontSize: constraints.maxWidth<600? 20: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/37: constraints.maxWidth/50),
                             ),
                           ),
                         ),
