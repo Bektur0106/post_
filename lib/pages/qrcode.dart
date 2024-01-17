@@ -134,8 +134,8 @@ class _QRscannerState extends State<QRscanner> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(0)
                                 ),
-                                height: constraints.maxWidth<600? 40: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/18: constraints.maxWidth/25,
-                                width: constraints.maxWidth<600? 160: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/4: constraints.maxWidth/7,
+                                height: constraints.maxWidth<600? 43: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/17.6: constraints.maxWidth/24.5,
+                                width: constraints.maxWidth<600? 170: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/3.9: constraints.maxWidth/6.8,
                                 child: ElevatedButton(
                                   onPressed: (){
                                     FocusManager.instance.primaryFocus?.unfocus();
