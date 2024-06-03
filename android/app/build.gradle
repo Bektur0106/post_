@@ -35,7 +35,7 @@ android {
         exclude 'META-INF/NOTICE'
     }
     namespace "post.ace.com.post"
-    compileSdkVersion 33
+    compileSdkVersion 34
     ndkVersion flutter.ndkVersion
 
     compileOptions {

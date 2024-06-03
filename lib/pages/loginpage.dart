@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:post/pages/storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -41,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
             child: new Text('Нет'),
           ),
           TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
+            onPressed: () => exit(0),
             child: new Text('Да'),
           ),
         ],
