@@ -8,10 +8,12 @@ class Poluch extends StatefulWidget {
   final String? lastName;
   final String? firstName;
   final String? patName;
-  const Poluch({Key? key, required this.res, required this.id, required this.otdelenieId,required this.lastName,required this.firstName, required this.patName})
+  final String? username;
+
+  const Poluch({Key? key, required this.res, required this.id, required this.otdelenieId,required this.lastName,required this.firstName, required this.patName, required this.username})
       : super(key: key);
   @override
-  State<Poluch> createState() => _PoluchState(res, id, otdelenieId, lastName,firstName,patName);
+  State<Poluch> createState() => _PoluchState(res, id, otdelenieId, lastName,firstName,patName, username);
 }
 
 class _PoluchState extends State<Poluch> {
@@ -21,7 +23,8 @@ class _PoluchState extends State<Poluch> {
   String? last;
   String? first;
   String? pat;
-  _PoluchState(this.result, this.id, this.otdelen, this.last,this.first, this.pat);
+  String? usname;
+  _PoluchState(this.result, this.id, this.otdelen, this.last,this.first, this.pat, this.usname);
 
   static const backColor = Color(0xFF90CAF9);
   static const primaryColor = Color(0xFF1E88E5);
@@ -55,7 +58,7 @@ class _PoluchState extends State<Poluch> {
                 onPressed: () {
                   var route = MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        DataAdd(res: result, id: id, otdelenie: otdelen,fam: last,name: first,otch: pat,),
+                        DataAdd(res: result, id: id, otdelenie: otdelen,fam: last,name: first,otch: pat, usname: usname,),
                   );
                   Navigator.of(context).push(route);
                 },
@@ -74,7 +77,7 @@ class _PoluchState extends State<Poluch> {
                 onPressed: () {
                   var route = MaterialPageRoute(
                     builder: (BuildContext context) =>
-                        DataAdd(res: result, id: id, otdelenie: otdelen,fam: '',name: '',otch: '',),
+                        DataAdd(res: result, id: id, otdelenie: otdelen,fam: '',name: '',otch: '', usname: usname,),
                   );
                   Navigator.of(context).push(route);
                 },

@@ -9,21 +9,23 @@ import 'package:post/pages/poluchatel.dart';
 class QRscanner extends StatefulWidget {
 
   final int? otdelenieID;
+  final String? name;
 
-  const QRscanner({Key? key, required this.otdelenieID}) : super(key: key);
+  const QRscanner({Key? key, required this.otdelenieID, required this.name}) : super(key: key);
 
   @override
-  State<QRscanner> createState() => _QRscannerState(otdelenieID);
+  State<QRscanner> createState() => _QRscannerState(otdelenieID, name);
 }
 
 class _QRscannerState extends State<QRscanner> {
 
   int? otdelen;
+  String? names;
   static const backColor = Color(0xFF90CAF9);
   static const primaryColor = Color(0xFF1E88E5);
   static const buttonColor = Color(0xFFC62828);
 
-  _QRscannerState(this.otdelen);
+  _QRscannerState(this.otdelen, this.names);
 
   String? result;
 
@@ -143,7 +145,7 @@ class _QRscannerState extends State<QRscanner> {
                                         if (data.isAuthSuccessful){
                                           var route= MaterialPageRoute(
                                             builder: (BuildContext context)=>
-                                                Poluch(res: result,id:data.ItemId, otdelenieId: otdelen,firstName: data.Name,lastName: data.LastName,patName: data.PatronomycName,),
+                                                Poluch(res: result,id:data.ItemId, otdelenieId: otdelen,firstName: data.Name,lastName: data.LastName,patName: data.PatronomycName, username: names,),
                                           );
                                           Navigator.of(context).push(route);
                                         }else{
@@ -191,7 +193,7 @@ class _QRscannerState extends State<QRscanner> {
                                       if (data.isAuthSuccessful){
                                         var route= MaterialPageRoute(
                                           builder: (BuildContext context)=>
-                                              Poluch(res: result,id:data.ItemId, otdelenieId: otdelen,firstName: data.Name,lastName: data.LastName,patName: data.PatronomycName,),
+                                              Poluch(res: result,id:data.ItemId, otdelenieId: otdelen,firstName: data.Name,lastName: data.LastName,patName: data.PatronomycName, username: names,),
                                         );
                                         Navigator.of(context).push(route);
                                       }else{

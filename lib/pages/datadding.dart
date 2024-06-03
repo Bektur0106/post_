@@ -15,10 +15,11 @@ class DataAdd extends StatefulWidget {
   final String? fam;
   final String? name;
   final String? otch;
-  const DataAdd({Key? key, required this.res, required this.id,required this.otdelenie, required this.name, required this.fam, required this.otch}) : super(key: key);
+  final String? usname;
+  const DataAdd({Key? key, required this.res, required this.id,required this.otdelenie, required this.name, required this.fam, required this.otch, required this.usname}) : super(key: key);
 
   @override
-  State<DataAdd> createState() => _DataAddState(res,id,otdelenie, name, fam, otch);
+  State<DataAdd> createState() => _DataAddState(res,id,otdelenie, name, fam, otch, usname);
 }
 
 class _DataAddState extends State<DataAdd> {
@@ -29,10 +30,11 @@ class _DataAddState extends State<DataAdd> {
   String? name;
   String? famil;
   String? otch;
+  String? username;
   static const backColor = Color(0xFFE3F2FD);
   static const primaryColor = Color(0xFF1E88E5);
   static const buttonColor = Color(0xFF0D47AD);
-  _DataAddState(this.result,this.id, this.otdelen, this.name, this.famil, this.otch);
+  _DataAddState(this.result,this.id, this.otdelen, this.name, this.famil, this.otch, this.username);
   Data data = Data(
       familiya: '',
       name: '',
@@ -52,7 +54,8 @@ class _DataAddState extends State<DataAdd> {
         'Otchestvo': data.otchestvo ?? "",
         'PIN': data.inn ?? "",
         'Passport': data.seriya ?? "",
-        'Id':id.toString()
+        'Id':id.toString(),
+        'UserName': username ?? ""
       }),
     );
     print(response.body);
@@ -87,7 +90,7 @@ class _DataAddState extends State<DataAdd> {
               onPressed: (){
                 var route= MaterialPageRoute(
                   builder: (BuildContext context)=>
-                  QRscanner(otdelenieID: otdelen),
+                  QRscanner(otdelenieID: otdelen, name: username,),
                 );
                 Navigator.of(context).push(route);
               },

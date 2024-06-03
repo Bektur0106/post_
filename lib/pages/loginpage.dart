@@ -244,7 +244,7 @@ class _LoginPageState extends State<LoginPage> {
                                           if(data.isAuthSuccessful){
                                             var route= MaterialPageRoute(
                                               builder: (BuildContext context)=>
-                                              QRscanner(otdelenieID: data.OtdelenieId),
+                                              QRscanner(otdelenieID: data.OtdelenieId, name: data.Name),
                                             );
                                             Navigator.of(context).push(route);
                                           }
