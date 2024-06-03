@@ -6,6 +6,8 @@ import 'package:http/http.dart' as http;
 import 'package:post/pages/UserObj.dart';
 import 'package:post/pages/push.dart';
 
+import 'newqpage.dart';
+
 
 class DataAdd extends StatefulWidget {
 
@@ -41,6 +43,15 @@ class _DataAddState extends State<DataAdd> {
       otchestvo: '',
       seriya: '',
       inn: '');
+
+  Future<bool> _onWillPop() async {
+    var route= MaterialPageRoute(
+      builder: (BuildContext context)=>
+          QRscanner(otdelenieID: id, name: username,),
+    );
+    Navigator.of(context).push(route);
+    return true;
+  }
 
   Future<UserObj> postData(Data data) async {
     final http.Response response = await http.post(
@@ -79,301 +90,317 @@ class _DataAddState extends State<DataAdd> {
     control.text=famil!;
     control1.text=name!;
     control2.text=otch!;
-    return Container(
-      child: Scaffold(
-          backgroundColor: backColor,
-          appBar: AppBar(
-            centerTitle: true,
-            title: const Text('Отправка отчета', style: TextStyle(color: Colors.white),),
-            toolbarHeight: 60,
-            leading: IconButton(
-              onPressed: (){
-                var route= MaterialPageRoute(
-                  builder: (BuildContext context)=>
-                  QRscanner(otdelenieID: otdelen, name: username,),
-                );
-                Navigator.of(context).push(route);
-              },
-              icon: const Icon(Icons.arrow_back),
-              color: Colors.white,
-            ),
-            backgroundColor: buttonColor,
+    return WillPopScope(
+        child: Container(
+            child: Scaffold(
+                backgroundColor: backColor,
+                appBar: AppBar(
+                  centerTitle: true,
+                  title: const Text('Отправка отчета', style: TextStyle(color: Colors.white),),
+                  toolbarHeight: 60,
+                  leading: IconButton(
+                    onPressed: (){
+                      var route= MaterialPageRoute(
+                        builder: (BuildContext context)=>
+                            QRscanner(otdelenieID: otdelen, name: username,),
+                      );
+                      Navigator.of(context).push(route);
+                    },
+                    icon: const Icon(Icons.arrow_back),
+                    color: Colors.white,
+                  ),
+                  backgroundColor: buttonColor,
 
-          ),
-          body:LayoutBuilder(builder: (context, constraints){
-            return GestureDetector(
-              onTap: (){
-                FocusScope.of(context).unfocus();
-                FocusScopeNode currentFocus = FocusScope.of(context);
-                if(!currentFocus.hasPrimaryFocus){
-                  currentFocus.unfocus();
-                }
-              },
-              child: SafeArea(
-                child: SingleChildScrollView(
-                  child: Column(
-                      children: [
-                        const Padding(padding: EdgeInsets.only(top:30)),
-                        Padding(
-                          padding: const EdgeInsets.only(left:30),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
+                ),
+                body:LayoutBuilder(builder: (context, constraints){
+                  return GestureDetector(
+                    onTap: (){
+                      FocusScope.of(context).unfocus();
+                      FocusScopeNode currentFocus = FocusScope.of(context);
+                      if(!currentFocus.hasPrimaryFocus){
+                        currentFocus.unfocus();
+                      }
+                    },
+                    child: SafeArea(
+                      child: SingleChildScrollView(
+                        child: Column(
                             children: [
-                              Container(
+                              const Padding(padding: EdgeInsets.only(top:30)),
+                              Padding(
+                                padding: const EdgeInsets.only(left:30),
                                 child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
                                   children: [
-                                    const Text('Товар: ', style:
-                                    TextStyle(
-                                        fontSize: 25,
-                                        color: Colors.black87
-                                    )
-                                      ,),
-                                    Text('$result', style:
-                                    const TextStyle(
-                                        fontSize: 20,
-                                        color: primaryColor
-                                    )
-                                      ,),
+                                    Container(
+                                      child: Row(
+                                        children: [
+                                          const Text('Товар: ', style:
+                                          TextStyle(
+                                              fontSize: 25,
+                                              color: Colors.black87
+                                          )
+                                            ,),
+                                          Text('$result', style:
+                                          const TextStyle(
+                                              fontSize: 20,
+                                              color: primaryColor
+                                          )
+                                            ,),
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 25, right: 17),
-                          child: Container(
-                            padding : const EdgeInsets.only(top: 10, bottom: 20,left: 5, right: 15),
-                            margin: const EdgeInsets.fromLTRB(10, 30, 20,0),
-                            child: Column(
-                              children: [
-                                Padding(
-                                  padding: const EdgeInsets.only(top:3),
-                                  child: TextField(
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                    ),
-                                    controller: control,
-                                    // onChanged: (String val){
-                                    //   data.familiya=val;
-                                    // },
-                                    decoration: InputDecoration(
-                                        prefixIcon: const Icon(Icons.manage_accounts, color: buttonColor,),
-                                        focusedBorder:const OutlineInputBorder(
-                                            borderSide: BorderSide(width: 2, color: buttonColor)
-                                        ) ,
-                                        enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(15),
-                                            borderSide: const BorderSide(width: 2, color: primaryColor)
-                                        ),
-                                        contentPadding: const EdgeInsets.all(20),
-                                        labelText: 'Фамилия',
-                                        labelStyle: const TextStyle(
-                                            color: primaryColor
-                                        )
-                                    ),
-                                  ),
-                                ),
-                                const Padding(padding: EdgeInsets.only(top:20)),
-                                Padding(
-                                  padding: const EdgeInsets.only(top:3),
-                                  child: TextFormField(
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                    ),
-                                    controller: control1,
-                                    // onChanged: (String val){
-                                    //   data.name=val;
-                                    // },
-                                    decoration: InputDecoration(
-                                        prefixIcon: const Icon(Icons.man_3_rounded, color: buttonColor,),
-                                        focusedBorder:const OutlineInputBorder(
-                                            borderSide: BorderSide(width: 2, color: buttonColor)
-                                        ) ,
-                                        enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(15),
-                                            borderSide: const BorderSide(
-                                                width: 2,
-                                                color: primaryColor
-                                            )
-                                        ),
-                                        contentPadding: const EdgeInsets.all(20),
-                                        labelText: 'Имя',
-                                        labelStyle: const TextStyle(
-                                            color: primaryColor
-                                        )
-                                    ),
-                                  ),
-                                ),
-                                const Padding(padding: EdgeInsets.only(top:20)),
-                                Padding(
-                                  padding: const EdgeInsets.only(top:3),
-                                  child: TextField(
-                                    style: const TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                    ),
-                                    controller: control2,
-                                    // onChanged: (String val){
-                                    //   data.otchestvo=val;
-                                    // },
-                                    decoration: InputDecoration(
-                                        prefixIcon: const Icon(Icons.manage_accounts_outlined, color: buttonColor,),
-                                        focusedBorder:const OutlineInputBorder(
-                                            borderSide: BorderSide(width: 2, color: buttonColor)
-                                        ) ,
-                                        enabledBorder: OutlineInputBorder(
-                                            borderRadius: BorderRadius.circular(15),
-                                            borderSide: const BorderSide(
-                                                width: 2,
-                                                color: primaryColor
-                                            )
-                                        ),
-                                        contentPadding: const EdgeInsets.all(20),
-                                        labelText: 'Отчество',
-                                        labelStyle: const TextStyle(
-                                            color: primaryColor
-                                        )
-                                    ),
-                                  ),
-                                ),
-                                const Padding(padding: EdgeInsets.only(top:20)),
-                                Padding(
-                                  padding: const EdgeInsets.only(top:3),
-                                  child: TextField(
-                                    style: const TextStyle(
-                                      color: Colors.amber,
-                                      fontSize: 18,
-                                    ),
-                                    onChanged: (String val){
-                                      data.seriya=val;
-                                    },
-                                    // keyboardType: TextInputType.number,
-                                    // inputFormatters: <TextInputFormatter>[
-                                    //   FilteringTextInputFormatter.allow(
-                                    //       RegExp('[0-9-]')),
-                                    // ],
-                                    decoration: InputDecoration(
-                                      prefixIcon: const Icon(Icons.account_box_rounded, color: buttonColor,),
-                                      focusedBorder:const OutlineInputBorder(
-                                          borderSide: BorderSide(width: 2, color: buttonColor)
-                                      ) ,
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
-                                          borderSide: const BorderSide(
-                                              width: 2,
-                                              color: primaryColor
-                                          )
-                                      ),
-                                      contentPadding: const EdgeInsets.all(20),
-                                      labelText: 'Серия паспорта',
-                                      labelStyle: const TextStyle(
-                                          color: primaryColor
-                                      ),
-                                      hintText: '',
-                                      hintStyle: const TextStyle(color: Colors.black54,fontSize: 16),
-                                    ),
-                                  ),
-                                ),
-                                const Padding(padding: EdgeInsets.only(top:20)),
-                                Padding(
-                                  padding: const EdgeInsets.only(top:3),
-                                  child: TextField(
-                                    style: const TextStyle(
-                                      color: Colors.amber,
-                                      fontSize: 18,
-                                    ),
-                                    onChanged: (String val){
-                                      data.inn=val;
-                                    },
-                                    // keyboardType: TextInputType.number,
-                                    // inputFormatters: <TextInputFormatter>[
-                                    //   FilteringTextInputFormatter.allow(
-                                    //       RegExp('[0-9-]')),
-                                    // ],
-                                    maxLength: 14,
-                                    decoration: InputDecoration(
-                                      counterText: '',
-                                      prefixIcon: const Icon(Icons.add, color: buttonColor,),
-                                      focusedBorder:const OutlineInputBorder(
-                                          borderSide: BorderSide(width: 2, color: buttonColor)
-                                      ) ,
-                                      enabledBorder: OutlineInputBorder(
-                                          borderRadius: BorderRadius.circular(15),
-                                          borderSide: const BorderSide(
-                                              width: 2,
-                                              color: primaryColor
-                                          )
-                                      ),
-                                      contentPadding: const EdgeInsets.all(20),
-                                      labelText: 'ПИН',
-                                      labelStyle: const TextStyle(
-                                          color: primaryColor
-                                      ),
-                                      hintStyle: const TextStyle(color: Colors.black54,fontSize: 16),
-                                    ),
-                                  ),
-                                ),
-                                const Padding(padding: EdgeInsets.only(top:40)),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ElevatedButton(
-                                      onPressed: (){
-                                        data.familiya=control.text;
-                                        data.name=control1.text;
-                                        data.otchestvo=control2.text;
-                                        postData(data).then((result) {
-                                          validator (value) {
-                                            final RegExp regex = RegExp('[0-9]');
-                                            if (value == null || value.isEmpty || !regex.hasMatch(value)) {
-                                              return false;
-                                            }
-                                            return true;
-                                          };
-                                          if (result.isAuthSuccessful && data.inn.length==14 && validator(data.inn) && validator(data.seriya)){
-                                            Navigator.of(context).pushNamed('new');
-                                          }
-                                          else {
-                                            final snackBar = SnackBar(
-                                              closeIconColor: Colors.red,
-                                              content: Text("Заполните все поля правильно"),
-                                              duration: const Duration(seconds: 3),
-                                            );
-                                            ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                                          }
-                                        });
-                                      },
-                                      style: ElevatedButton.styleFrom(
-                                        backgroundColor: buttonColor,
-                                      ),
-                                      child: SizedBox(
-                                        width: constraints.maxWidth<400? 220:constraints.maxWidth<600? 260: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/1.5: constraints.maxWidth/2.3,
-                                        height: constraints.maxWidth<600? 50: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/13: constraints.maxWidth/20,
-                                        child: Align(
-                                          alignment: Alignment.center,
-                                          child: Text('Отправить',
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold,
-                                                color: Colors.white,
-                                                fontSize: constraints.maxWidth<600? 20: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/37: constraints.maxWidth/50
-                                            ),
+                              Padding(
+                                padding: const EdgeInsets.only(left: 25, right: 17),
+                                child: Container(
+                                  padding : const EdgeInsets.only(top: 10, bottom: 20,left: 5, right: 15),
+                                  margin: const EdgeInsets.fromLTRB(10, 30, 20,0),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:3),
+                                        child: TextField(
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                          ),
+                                          controller: control,
+                                          // onChanged: (String val){
+                                          //   data.familiya=val;
+                                          // },
+                                          decoration: InputDecoration(
+                                              prefixIcon: const Icon(Icons.manage_accounts, color: buttonColor,),
+                                              focusedBorder:const OutlineInputBorder(
+                                                  borderSide: BorderSide(width: 2, color: buttonColor)
+                                              ) ,
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(15),
+                                                  borderSide: const BorderSide(width: 2, color: primaryColor)
+                                              ),
+                                              contentPadding: const EdgeInsets.all(20),
+                                              labelText: 'Фамилия',
+                                              labelStyle: const TextStyle(
+                                                  color: primaryColor
+                                              )
                                           ),
                                         ),
                                       ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            ),
-                          ),
-                        )]),
-                ),
-              ),
-            );
-    },))
-    );
+                                      const Padding(padding: EdgeInsets.only(top:20)),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:3),
+                                        child: TextFormField(
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                          ),
+                                          controller: control1,
+                                          // onChanged: (String val){
+                                          //   data.name=val;
+                                          // },
+                                          decoration: InputDecoration(
+                                              prefixIcon: const Icon(Icons.man_3_rounded, color: buttonColor,),
+                                              focusedBorder:const OutlineInputBorder(
+                                                  borderSide: BorderSide(width: 2, color: buttonColor)
+                                              ) ,
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(15),
+                                                  borderSide: const BorderSide(
+                                                      width: 2,
+                                                      color: primaryColor
+                                                  )
+                                              ),
+                                              contentPadding: const EdgeInsets.all(20),
+                                              labelText: 'Имя',
+                                              labelStyle: const TextStyle(
+                                                  color: primaryColor
+                                              )
+                                          ),
+                                        ),
+                                      ),
+                                      const Padding(padding: EdgeInsets.only(top:20)),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:3),
+                                        child: TextField(
+                                          style: const TextStyle(
+                                            color: Colors.black,
+                                            fontSize: 18,
+                                          ),
+                                          controller: control2,
+                                          // onChanged: (String val){
+                                          //   data.otchestvo=val;
+                                          // },
+                                          decoration: InputDecoration(
+                                              prefixIcon: const Icon(Icons.manage_accounts_outlined, color: buttonColor,),
+                                              focusedBorder:const OutlineInputBorder(
+                                                  borderSide: BorderSide(width: 2, color: buttonColor)
+                                              ) ,
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderRadius: BorderRadius.circular(15),
+                                                  borderSide: const BorderSide(
+                                                      width: 2,
+                                                      color: primaryColor
+                                                  )
+                                              ),
+                                              contentPadding: const EdgeInsets.all(20),
+                                              labelText: 'Отчество',
+                                              labelStyle: const TextStyle(
+                                                  color: primaryColor
+                                              )
+                                          ),
+                                        ),
+                                      ),
+                                      const Padding(padding: EdgeInsets.only(top:20)),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:3),
+                                        child: TextField(
+                                          style: const TextStyle(
+                                            color: Colors.amber,
+                                            fontSize: 18,
+                                          ),
+                                          onChanged: (String val){
+                                            data.seriya=val;
+                                          },
+                                          // keyboardType: TextInputType.number,
+                                          // inputFormatters: <TextInputFormatter>[
+                                          //   FilteringTextInputFormatter.allow(
+                                          //       RegExp('[0-9-]')),
+                                          // ],
+                                          decoration: InputDecoration(
+                                            prefixIcon: const Icon(Icons.account_box_rounded, color: buttonColor,),
+                                            focusedBorder:const OutlineInputBorder(
+                                                borderSide: BorderSide(width: 2, color: buttonColor)
+                                            ) ,
+                                            enabledBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(15),
+                                                borderSide: const BorderSide(
+                                                    width: 2,
+                                                    color: primaryColor
+                                                )
+                                            ),
+                                            contentPadding: const EdgeInsets.all(20),
+                                            labelText: 'Серия паспорта',
+                                            labelStyle: const TextStyle(
+                                                color: primaryColor
+                                            ),
+                                            hintText: '',
+                                            hintStyle: const TextStyle(color: Colors.black54,fontSize: 16),
+                                          ),
+                                        ),
+                                      ),
+                                      const Padding(padding: EdgeInsets.only(top:20)),
+                                      Padding(
+                                        padding: const EdgeInsets.only(top:3),
+                                        child: TextField(
+                                          style: const TextStyle(
+                                            color: Colors.amber,
+                                            fontSize: 18,
+                                          ),
+                                          onChanged: (String val){
+                                            data.inn=val;
+                                          },
+                                          // keyboardType: TextInputType.number,
+                                          // inputFormatters: <TextInputFormatter>[
+                                          //   FilteringTextInputFormatter.allow(
+                                          //       RegExp('[0-9-]')),
+                                          // ],
+                                          maxLength: 14,
+                                          decoration: InputDecoration(
+                                            counterText: '',
+                                            prefixIcon: const Icon(Icons.add, color: buttonColor,),
+                                            focusedBorder:const OutlineInputBorder(
+                                                borderSide: BorderSide(width: 2, color: buttonColor)
+                                            ) ,
+                                            enabledBorder: OutlineInputBorder(
+                                                borderRadius: BorderRadius.circular(15),
+                                                borderSide: const BorderSide(
+                                                    width: 2,
+                                                    color: primaryColor
+                                                )
+                                            ),
+                                            contentPadding: const EdgeInsets.all(20),
+                                            labelText: 'ПИН',
+                                            labelStyle: const TextStyle(
+                                                color: primaryColor
+                                            ),
+                                            hintStyle: const TextStyle(color: Colors.black54,fontSize: 16),
+                                          ),
+                                        ),
+                                      ),
+                                      const Padding(padding: EdgeInsets.only(top:40)),
+                                      Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          ElevatedButton(
+                                            onPressed: (){
+                                              data.familiya=control.text;
+                                              data.name=control1.text;
+                                              data.otchestvo=control2.text;
+                                              validator (value) {
+                                                final RegExp regex = RegExp('[0-9]');
+                                                if (value == null || value.isEmpty || !regex.hasMatch(value)) {
+                                                  return false;
+                                                }
+                                                return true;
+                                              };
+                                              if ( data.inn.length==14 && validator(data.inn) && validator(data.seriya)){
+                                                postData(data).then((result){
+                                                  if(result.isAuthSuccessful){
+                                                    var route= MaterialPageRoute(
+                                                      builder: (BuildContext context)=>
+                                                          NewPage(id: id, usname: username,),
+                                                    );
+                                                    Navigator.of(context).push(route);
+                                                  }else{
+                                                    final snackBar = SnackBar(
+                                                      closeIconColor: Colors.red,
+                                                      content: Text("Не удалось отправить данные"),
+                                                      duration: const Duration(seconds: 3),
+                                                    );
+                                                    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                                  }
+                                                });
+                                              }
+                                              else {
+                                                final snackBar = SnackBar(
+                                                  closeIconColor: Colors.red,
+                                                  content: Text("Заполните все поля правильно"),
+                                                  duration: const Duration(seconds: 3),
+                                                );
+                                                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                              }
+
+                                            },
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: buttonColor,
+                                            ),
+                                            child: SizedBox(
+                                              width: constraints.maxWidth<400? 220:constraints.maxWidth<600? 260: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/1.5: constraints.maxWidth/2.3,
+                                              height: constraints.maxWidth<600? 50: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/13: constraints.maxWidth/20,
+                                              child: Align(
+                                                alignment: Alignment.center,
+                                                child: Text('Отправить',
+                                                  style: TextStyle(
+                                                      fontWeight: FontWeight.bold,
+                                                      color: Colors.white,
+                                                      fontSize: constraints.maxWidth<600? 20: constraints.maxWidth<1040 && constraints.maxWidth>=600? constraints.maxWidth/37: constraints.maxWidth/50
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          )
+                                        ],
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              )]),
+                      ),
+                    ),
+                  );
+                },))
+        ),
+        onWillPop: _onWillPop);
   }
 }

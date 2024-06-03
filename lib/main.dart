@@ -22,7 +22,6 @@ class MyApp extends StatelessWidget {
       initialRoute: 'log',
       routes: {
         'log' : (context)=> const LoginPage(),
-        'new' : (context)=> const NewPage(),
         // DataAdd(res: 'ad', id: 555, otdelenie: 555, name: 'das', fam: 'ads', otch: 'fsdzfs'),
       },
     );
