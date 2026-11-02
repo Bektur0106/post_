@@ -52,7 +52,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Future<UserObj> authenticate(String username, String pwd ) async {
     final http.Response response = await http.post(
-      Uri.parse('http://77.235.20.21:8087/api/Mobiles/Login'),
+      Uri.parse('https://pu.post.kg/api/Mobiles/Login'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },

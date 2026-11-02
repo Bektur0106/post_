@@ -36,7 +36,7 @@ class _QRscannerState extends State<QRscanner> {
 
   Future<UserObj> authenticate(String? barcode ) async {
     final http.Response response = await http.post(
-      Uri.parse('http://77.235.20.21:8087/api/Mobiles/CheckItems'),
+      Uri.parse('https://pu.post.kg/api/Mobiles/CheckItems'),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
